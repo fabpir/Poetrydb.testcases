@@ -1,7 +1,7 @@
 Following is the list of the cases.
 
 This is an example of manual test case:
-
+```
 Test case 1
 Scenario: Retrieve a poem by its title from the Poetry Database API
 
@@ -22,9 +22,10 @@ And the response body should contain the expected poem data
     "linecount": "linecount"
   }
 ]
+```
 
 Same test case using Pytest:
-
+```
 import requests
 import json
 
@@ -50,7 +51,7 @@ def test_get_poem_by_title():
     assert "author" in poem  # Verify the poem dictionary contains the "author" field
     assert "lines" in poem  # Verify the poem dictionary contains the "lines" field
     assert "linecount" in poem  # Verify the poem dictionary contains the "linecount" field
-
+```
 
 
 | Test Case |               Scenario              |                                               Steps                                              |       Expected Result      |                                       Validation Method                                       |
