@@ -13,6 +13,7 @@ When a GET request is sent to https://poetrydb.org/title/{title}/.json
 Then the response status code should be 200 OK
 And the response body should be a JSON object
 And the response body should contain the expected poem data
+
 [
   {
     "title": "Title"
@@ -22,6 +23,33 @@ And the response body should contain the expected poem data
   }
 ]
 
+Same test case using Pytest:
+
+import requests
+import json
+
+def test_get_poem_by_title():
+    # Given
+    base_url = "https://poetrydb.org"
+    endpoint = "/title/{title}/.json"
+    valid_poem_title = "The Road"  # Replace with the actual valid poem title
+
+    # When
+    url = base_url + endpoint.format(title=valid_poem_title)
+    response = requests.get(url)
+    response_data = response.json()
+
+    # Then
+    assert response.status_code == 200  # Verify the response status code is 200 OK
+    assert isinstance(response_data, list)  # Verify the response body is a list of poems
+    assert len(response_data) > 0  # Verify that at least one poem is returned
+    poem = response_data[0]  # Assuming we are interested in the first poem in the list
+    assert isinstance(poem, dict)  # Verify the poem is a dictionary
+    assert "title" in poem  # Verify the poem dictionary contains the "title" field
+    assert valid_poem_title.lower() in poem["title"].lower()  # Verify the expected title is a partial match
+    assert "author" in poem  # Verify the poem dictionary contains the "author" field
+    assert "lines" in poem  # Verify the poem dictionary contains the "lines" field
+    assert "linecount" in poem  # Verify the poem dictionary contains the "linecount" field
 
 
 
